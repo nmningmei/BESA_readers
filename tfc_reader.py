@@ -51,13 +51,14 @@ def tfc(filename):
                     result['Channel']=line.split(' ')[:-1]
                 else:
                     #print(ch_count,freq_count)
-                    result['data'][ch_count,:,freq_count]=np.array([float(n) for n in line.split('\t')[:-1]])
-                    if freq_count >= result['NumberFrequencies']-1:
-                        freq_count = 0
-                        ch_count +=1
-                    else:
-                        freq_count +=1
-
-                    cnt += 1
+                    if len(line) > 2:
+                        result['data'][ch_count,:,freq_count]=np.array([float(n) for n in line.split('\t')[:-1]])
+                        if freq_count >= result['NumberFrequencies']-1:
+                            freq_count = 0
+                            ch_count +=1
+                        else:
+                            freq_count +=1
+    
+                        cnt += 1
         
     return result
