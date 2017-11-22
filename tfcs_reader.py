@@ -22,27 +22,27 @@ def tfcs_reader(fileName):
                 n_trials += 1
                 n_channels = 0
                 n_freqs = 0
-                tfc_data['trial%d'%n_trials] = {}
+                tfc_data[n_trials] = {}
             elif 'Channel' in tline:
                 n_channels += 1
                 n_freqs = 0
-                tfc_data['trial%d'%n_trials]['channel%d'%n_channels] = {}
+                tfc_data[n_trials][n_channels] = {}
             else:
                 tline = tline.strip()
                 temp = re.split('\t',tline)
                 n_samples = np.array(temp).shape[0]
                 n_freqs += 1
-                tfc_data['trial%d'%n_trials]['channel%d'%n_channels]['freq%d'%n_freqs] = []
+                tfc_data[n_trials][n_channels][n_freqs] = []
                 for jj in range(n_samples):
                     two_reals = temp[jj]
                     a,b = re.findall('\d+\.\d+',two_reals)
                     value = np.complex(float(a),float(b))
-                    tfc_data['trial%d'%n_trials]['channel%d'%n_channels]['freq%d'%n_freqs].append(value)
+                    tfc_data[n_trials][n_channels][n_freqs].append(value)
 
     results = np.zeros((len(tfc_data.keys()),
-                        len(tfc_data['trial1'].keys()),
-                        len(tfc_data['trial1']['channel1'].keys()),
-                        len(tfc_data['trial1']['channel1']['freq1'])))
+                        len(tfc_data[1].keys()),
+                        len(tfc_data[1][1].keys()),
+                        len(tfc_data[1][1][1])))
 
     for ii, key_trial in enumerate(tfc_data.keys()):
         for jj, key_ch in enumerate(tfc_data[key_trial].keys()):
