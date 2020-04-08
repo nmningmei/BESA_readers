@@ -1,3 +1,12 @@
+"""
+Created on Wed Nov 22 14:18:45 2017
+
+@author: ning
+
+The function (time frequency convolution) takes .swf files and return attributions in the file.
+Translation from BESA Matlab functions.
+"""
+
 import numpy as np
 import re
 
